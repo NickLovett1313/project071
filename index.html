@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Open Orders Checker (Browser Only)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Open Orders Checker</h1>
+    <p class="sub">Fully local — no uploads, no server, Azure Static Web App compatible</p>
+  </header>
+  <section class="card">
+    <h2>1) Upload Files</h2>
+    <div class="uploader">
+      <div>
+        <label>Factory PO (.xlsx)</label>
+        <input type="file" id="poFile" accept=".xlsx,.xls" />
+      </div>
+      <div>
+        <label>Order Acknowledgement (.xlsx)</label>
+        <input type="file" id="oaFile" accept=".xlsx,.xls" />
+      </div>
+      <button id="loadBtn">Load Sheets</button>
+    </div>
+    <div id="sheetPickers" class="hidden">
+      <div>
+        <label>PO Sheet</label>
+        <select id="poSheet"></select>
+      </div>
+      <div>
+        <label>OA Sheet</label>
+        <select id="oaSheet"></select>
+      </div>
+    </div>
+  </section>
+  <section class="card">
+    <h2>2) Map Columns</h2>
+    <p class="muted">Pick how to match rows and which fields to compare.</p>
+    <div class="grid">
+      <div>
+        <h3>PO Columns</h3>
+        <div class="map"><label>Line/Key</label><select id="poKey"></select></div>
+        <div class="map"><label>Model</label><select id="poModel"></select></div>
+        <div class="map"><label>Quantity</label><select id="poQty"></select></div>
+        <div class="map"><label>Unit Price</label><select id="poPrice"></select></div>
+        <div class="map"><label>Request Date</label><select id="poDate"></select></div>
+        <div class="map"><label>Tags</label><select id="poTags"></select></div>
+      </div>
+      <div>
+        <h3>OA Columns</h3>
+        <div class="map"><label>Line/Key</label><select id="oaKey"></select></div>
+        <div class="map"><label>Model</label><select id="oaModel"></select></div>
+        <div class="map"><label>Quantity</label><select id="oaQty"></select></div>
+        <div class="map"><label>Unit Price</label><select id="oaPrice"></select></div>
+        <div class="map"><label>Expected Ship</label><select id="oaDate"></select></div>
+        <div class="map"><label>Tags</label><select id="oaTags"></select></div>
+      </div>
+    </div>
+    <button id="compareBtn" class="primary">Compare</button>
+  </section>
+  <section class="card">
+    <h2>3) Results</h2>
+    <div id="summary"></div>
+    <div id="results"></div>
+  </section>
+  <footer>
+    <p class="muted">Tip: Use CSV export below each table to save results. Everything runs locally.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
