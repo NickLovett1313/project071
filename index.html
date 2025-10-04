@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SAP vs Open Orders — 4-Field Row-by-Row (Client-Only)</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- SheetJS (xlsx) for client-side Excel parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>SAP vs Open Orders — 4-Field Row-by-Row</h1>
+    <p class="caption">
+      All processing happens <strong>in your browser</strong>. Nothing is uploaded or saved.
+      We compare <strong>PO #, PO Item, Model, Location</strong> strictly by row index.
+      Model is trimmed at <code>&gt;&gt;</code>. SAP code <code>2913</code> maps to <code>EDMONTON</code>.
+    </p>
+
+    <div class="card">
+      <div class="uploader">
+        <div>
+          <label class="label">SAP Excel (C=PO#, D=Location, G=Item, H=Model)</label>
+          <input id="sapFile" type="file" accept=".xlsx,.xls" />
+        </div>
+        <div>
+          <label class="label">Open Orders Excel (N=PO#, O=Item, Q=Model, J=Location)</label>
+          <input id="ooFile" type="file" accept=".xlsx,.xls" />
+        </div>
+      </div>
+      <button id="compareBtn" class="btn">Compare</button>
+    </div>
+
+    <div id="summary" class="summary hidden">
+      <div class="metric">
+        <div class="metric-label">Rows Checked</div>
+        <div id="rowsChecked" class="metric-value">0</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Rows Equivalent</div>
+        <div id="rowsEq" class="metric-value">0</div>
+        <div class="note">✅ Equivalent rows</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Rows with Discrepancies</div>
+        <div id="rowsDisc" class="metric-value">0</div>
+        <div class="note">❌ Has at least one mismatch</div>
+      </div>
+    </div>
+
+    <div id="lengthNote" class="note hidden"></div>
+
+    <div class="card">
+      <h2>Row-by-Row View</h2>
+      <div id="combinedTable"></div>
+    </div>
+
+    <div class="card">
+      <h2>Discrepancy Report</h2>
+      <div id="discTable"></div>
+      <button id="downloadCsv" class="btn secondary hidden">Download Discrepancies CSV</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
